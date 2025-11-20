@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 
 export default function Header() {
   const [isUser, setIsUser] = useState(null);
+  setIsUser(null);
   return (
     <>
       <header className=" bg-gray-700">
