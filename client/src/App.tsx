@@ -5,7 +5,9 @@ import {
   useLocation,
 } from "react-router-dom";
 import { Header } from "./components/Layout";
-import { Login, Register } from "./pages";
+import { Login, Register, Landing } from "./pages";
+import { Provider } from "react-redux";
+import { store } from "./app/store.ts";
 
 function Layout() {
   const location = useLocation();
@@ -14,22 +16,27 @@ function Layout() {
   );
   return (
     <>
-      {!hideHeader && <Header />}
-
-      <Routes>
-        <Route path="/" element={<p>The guide to your many stories</p>} />
-        <Route path="/home" element={<p>You are home</p>} />
-        <Route path="/Login" element={<Login />} />
-        <Route path="/Register" element={<Register />} />
-      </Routes>
+      <div className="flex flex-col h-full w-full">
+        {!hideHeader && <Header />}
+        <div className="main-content">
+          <Routes>
+            <Route path="/" element={<Landing />} />
+            <Route path="/home" element={<p>You are home</p>} />
+            <Route path="/Login" element={<Login />} />
+            <Route path="/Register" element={<Register />} />
+          </Routes>
+        </div>
+      </div>
     </>
   );
 }
 
 export default function App() {
   return (
-    <Router>
-      <Layout />
-    </Router>
+    <Provider store={store}>
+      <Router>
+        <Layout />
+      </Router>
+    </Provider>
   );
 }

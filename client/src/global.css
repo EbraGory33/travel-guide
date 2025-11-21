@@ -1,1 +1,90 @@
 @import "tailwindcss";
+
+/* ==========================================================================
+  1. Base Reset
+========================================================================== */
+#root,
+body,
+html {
+  width: 100vw;
+  height: 100dvh;
+}
+* {
+  box-sizing: border-box;
+}
+
+/* TEMP: Debug overflow layout */
+/* * {
+  border: 1px solid red;
+} */
+/* ==========================================================================
+  2. Root Variables
+========================================================================== */
+:root {
+  --background-color: #7b98b6;
+}
+body {
+  background-color: var(--background-color);
+}
+
+/* ==========================================================================
+  3. Custom Utilities & Components
+========================================================================== */
+
+@layer utilities {
+  /* ---  Header  --- */
+  .header-container {
+    @apply w-[75%] h-20 mx-auto flex items-center justify-between;
+  }
+  .header-sections {
+    @apply flex items-center;
+  }
+  .header-sections-content {
+    @apply flex items-center gap-4 font-serif;
+  }
+  .header-main {
+    @apply flex items-center font-thin  text-gray-200;
+  }
+  .header-links {
+    @apply font-medium hover:border-b-2;
+  }
+
+  .header-input {
+    @apply flex bg-gray-200 rounded-4xl h-14;
+  }
+  .search-icon {
+    @apply ml-4;
+  }
+  .input-field {
+    @apply focus:outline-none;
+  }
+  /* --- Main Content --- */
+  .main-content {
+    @apply flex flex-1 m-auto;
+  }
+  /* --- Landing Page --- */
+  .landing-section {
+    @apply flex flex-col items-center w-full gap-16 px-20 my-auto  overflow-clip;
+  }
+  .landing-content {
+    @apply flex flex-col gap-y-8 items-center;
+  }
+  .landing-text-container {
+    @apply flex flex-col items-center text-center gap-4 w-full px-4;
+  }
+  .landing-title {
+    @apply text-center font-bold text-gray-900 text-5xl sm:text-4xl;
+  }
+
+  .landing-description {
+    @apply flex flex-col items-center gap-2 w-full max-w-[600px] text-gray-600 text-[18px] leading-[150%] break-normal;
+  }
+
+  .landing-actions {
+    @apply flex items-center gap-x-2 gap-y-2;
+  }
+
+  .btn-primary {
+    @apply px-6 py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition;
+  }
+}
