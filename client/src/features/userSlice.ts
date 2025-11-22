@@ -2,11 +2,17 @@ import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import type { RootState } from "../app/store";
 
-// TODO: Update initial User type
-interface User {
-  id: string;
-  name: string;
+export interface SavedTrip {
+  tripId: string;
+  addedAt: string;
+}
+export interface User {
+  _id: string;
   email: string;
+  firstName: string;
+  lastName: string;
+  phone: string;
+  savedTrips: SavedTrip[];
 }
 
 interface UserState {
