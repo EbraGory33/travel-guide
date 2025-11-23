@@ -23,7 +23,7 @@ export default function TextInput({ type = "text", ...rest }: TextInputProps) {
           className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500"
           onClick={() => setShow((prev) => !prev)}
         >
-          {show ? "🙈" : "👁️"}
+          {show ? "Hide" : "Show"}
         </button>
       )}
     </div>

@@ -1,10 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
-import type { PayloadAction } from "@reduxjs/toolkit";
+// import type { PayloadAction } from "@reduxjs/toolkit";
 import type { RootState } from "../app/store";
 
 export interface SavedTrip {
   tripId: string;
-  addedAt: string;
 }
 export interface User {
   _id: string;
@@ -29,24 +28,21 @@ const userSlice = createSlice({
   name: "user",
   initialState: initialState,
   reducers: {
-    login: (state, action: PayloadAction<User>) => {
+    setUser: (state, action) => {
       state.user = action.payload;
       state.isLoggedIn = true;
     },
-    logout: (state) => {
+    removeUser: (state) => {
       state.user = null;
       state.isLoggedIn = false;
     },
-    updateUser: (
-      state,
-      action: PayloadAction<PayloadAction<Partial<User>>>
-    ) => {
+    updateUser: (state, action) => {
       if (state.user) state.user = { ...state.user, ...action.payload };
     },
   },
 });
 
-export const { login, logout, updateUser } = userSlice.actions;
+export const { setUser, removeUser, updateUser } = userSlice.actions;
 
 export const selectUser = (state: RootState) => state.user;
 export default userSlice.reducer;
