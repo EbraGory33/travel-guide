@@ -6,9 +6,11 @@ import {
   useLocation,
 } from "react-router-dom";
 import { Header } from "./components/Layout";
-import { Login, Register, Landing, Explorer } from "./pages";
+// import { Login, Register, Landing, Explorer } from "./pages";
+import { Login, Register, Explorer } from "./pages";
 import { useAppDispatch } from "./app/hooks";
-import { logout, verify } from "./services/authAPI";
+// import { logout, verify } from "./services/authAPI";
+import { verify } from "./services/authAPI";
 
 function Layout() {
   const location = useLocation();

@@ -12,7 +12,9 @@ export default function PlacesCard({ id, Name, description }: PlacesCardProps) {
     <>
       <div className="place-card">
         <div className="place-card-header">
-          <h2>{Name}</h2>
+          <p>
+            {id}. {Name}
+          </p>
           {/* save if not saved and Saved if saved */}
           <button className="save-btn" onClick={() => saveplace(id)}>
             Save
@@ -22,7 +24,7 @@ export default function PlacesCard({ id, Name, description }: PlacesCardProps) {
         {/* Todo: later */}
         {/* <div className="ratings"></div> */}
 
-        <p className="description">{description}</p>
+        <p className="place-card-description">{description}</p>
 
         {/* TODO: reviews for later developments*/}
         {/* <blockquote classname="review"></blockquote> */}

@@ -3,15 +3,21 @@ import { Link } from "react-router-dom";
 import { PlacesCard } from "../components/Layout";
 export default function Explorer() {
   const [place, setPlace] = useState("New York");
+  const prev = () => {};
+  const next = () => {
+    setPlace("");
+  };
   return (
     <>
       <div className="explorer-section">
         <div className="image-wrapper">
           <img
-            src="src/assets/download.jpeg"
+            src="https://images.unsplash.com/photo-1664531685548-f77f1da7c010?ixid=M3w4MzUwMjR8MHwxfHNlYXJjaHwxfHxuZXcteW9yay1jaXR5fGVufDB8fHx8MTc2NDAxMTAxOXww&ixlib=rb-4.1.0"
+            // src="src/assets/download.jpeg"
             alt=""
-            className="h-[250px] w-[1000px]"
+            className="h-[500px] w-[750px]"
           />
+          {/* Overlay content */}
           <span className="places">{place}</span>
           <span className="description">
             New York City comprises 5 boroughs sitting where the Hudson River
@@ -21,6 +27,19 @@ export default function Explorer() {
             such as the Empire State Building and sprawling Central Park.
             Broadway theater is staged in neon-lit Times Square.
           </span>
+          {/* Navigation arrows */}
+          <button
+            onClick={prev}
+            className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/50 text-white px-3 py-2 rounded"
+          >
+            ‹
+          </button>
+          <button
+            onClick={next}
+            className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/50 text-white px-3 py-2 rounded"
+          >
+            ›
+          </button>
         </div>
         <div className="section-navigators">
           {/* TODO: Style buttons */}
@@ -33,7 +52,7 @@ export default function Explorer() {
           <div>Categories section</div>
         //   TODO: Other section for later in developemt
         </div> */}
-        <div>Top Places to visit</div>
+        <p className="top-places">Top Places to visit</p>
         <PlacesCard
           id={1}
           Name={"Central Park"}
@@ -41,7 +60,15 @@ export default function Explorer() {
             "Central Park is a breathtaking green sanctuary nestled in the bustling heart of New York City, offering an escape from the urban hustle. Established in 1857, this iconic park spans over 800 acres, making it larger than London's Hyde Park. Visitors can meander along scenic walking paths and expansive lawns while discovering a plethora of attractions. From the enchanting Alice in Wonderland statue to Belvedere Castle perched on Vista Rock, every corner reveals something new."
           }
         />
-        <div>Top Places to eat</div>
+
+        <p className="top-places">Top Places to eat</p>
+        <PlacesCard
+          id={1}
+          Name={"Central Park"}
+          description={
+            "Central Park is a breathtaking green sanctuary nestled in the bustling heart of New York City, offering an escape from the urban hustle. Established in 1857, this iconic park spans over 800 acres, making it larger than London's Hyde Park. Visitors can meander along scenic walking paths and expansive lawns while discovering a plethora of attractions. From the enchanting Alice in Wonderland statue to Belvedere Castle perched on Vista Rock, every corner reveals something new."
+          }
+        />
         {/* Todo: Hotel Bookings and prices */}
         {/* <div>Places to stay</div> */}
         {/* Todo: Top Travel Guides for Location*/}
