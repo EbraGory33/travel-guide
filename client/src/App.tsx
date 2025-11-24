@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import {
   BrowserRouter as Router,
   Routes,
@@ -5,9 +6,9 @@ import {
   useLocation,
 } from "react-router-dom";
 import { Header } from "./components/Layout";
-import { Login, Register, Landing } from "./pages";
-import { Provider } from "react-redux";
-import { store } from "./app/store.ts";
+import { Login, Register, Landing, Explorer } from "./pages";
+import { useAppDispatch } from "./app/hooks";
+import { logout, verify } from "./services/authAPI";
 
 function Layout() {
   const location = useLocation();
@@ -20,7 +21,10 @@ function Layout() {
         {!hideHeader && <Header />}
         <div className="main-content">
           <Routes>
-            <Route path="/" element={<Landing />} />
+            {/* <Route path="/" element={<Landing />} /> */}
+            {/* TODO: delete/rewrite this route*/}
+            <Route path="/" element={<Explorer />} />
+            {/*  */}
             <Route path="/home" element={<p>You are home</p>} />
             <Route path="/Login" element={<Login />} />
             <Route path="/Register" element={<Register />} />
@@ -32,11 +36,23 @@ function Layout() {
 }
 
 export default function App() {
+  const dispatch = useAppDispatch();
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const initializeUser = async () => {
+      setLoading(true);
+      await verify(dispatch);
+
+      setLoading(false);
+    };
+
+    initializeUser();
+  }, [dispatch]);
+  if (loading) return;
   return (
-    <Provider store={store}>
-      <Router>
-        <Layout />
-      </Router>
-    </Provider>
+    <Router>
+      <Layout />
+    </Router>
   );
 }

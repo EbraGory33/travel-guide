@@ -3,6 +3,7 @@ import { useAppSelector } from "../../app/hooks";
 
 export default function Header() {
   const { user, isLoggedIn } = useAppSelector((state) => state.user);
+  console.log("User: ", user);
   return (
     <>
       <header className="border-b border-solid border-[#868686]">
@@ -17,10 +18,10 @@ export default function Header() {
                 Home
               </Link>
               <Link className="header-links" to="/">
-                Travel guides
+                Places
               </Link>
               <Link className="header-links" to="/">
-                Hotels
+                Travel Guide
               </Link>
             </div>
           </section>
@@ -45,7 +46,7 @@ export default function Header() {
                 <>
                   {/* Notification bell */}
                   {/* User Profile */}
-                  <>{user}</>
+                  <p>{user?.firstName}</p>
                 </>
               ) : (
                 <>

@@ -14,24 +14,10 @@ export interface LogInData {
   password: string;
 }
 
-const verify = async (dispatch: AppDispatch) => {
+const signUp = async (signUpData: SignUpData) => {
   try {
     // setLoading(true)
-    const userData = await apiFetch("auth/authenticate", true);
-    dispatch(setUser(userData));
-    console.log("User has been verified");
-  } catch (error) {
-    console.error("Error verifying user", error);
-  } finally {
-    // setLoading(false);
-  }
-};
-
-const signUp = async (dispatch: AppDispatch, signUpData: SignUpData) => {
-  try {
-    // setLoading(true)
-    const userData = await apiFetch("auth/register", true, "POST", signUpData);
-    dispatch(setUser(userData));
+    await apiFetch("auth/register", true, "POST", signUpData);
     console.log("Registered succesfully");
   } catch (error) {
     console.error("Error signing up", error);
@@ -40,11 +26,9 @@ const signUp = async (dispatch: AppDispatch, signUpData: SignUpData) => {
   }
 };
 
-const logIn = async (dispatch: AppDispatch, logInData: LogInData) => {
+const logIn = async (logInData: LogInData) => {
   try {
-    const userData = await apiFetch("auth/login", true, "POST", logInData);
-    console.log(userData);
-    dispatch(setUser(userData));
+    await apiFetch("auth/login", true, "POST", logInData);
     console.log("Logged In succesfully");
   } catch (error) {
     console.error("Error signing in", error);
@@ -58,6 +42,18 @@ const logout = async (dispatch: AppDispatch) => {
     console.log("Logged out succesfully");
   } catch (error) {
     console.error("Error logging out", error);
+  }
+};
+const verify = async (dispatch: AppDispatch) => {
+  try {
+    // setLoading(true)
+    const userData = await apiFetch("auth/authenticate", true);
+    dispatch(setUser(userData));
+    console.log("User has been verified");
+  } catch (error) {
+    await logout(dispatch);
+  } finally {
+    // setLoading(false);
   }
 };
 const update = async (dispatch: AppDispatch, id: string, data: any) => {

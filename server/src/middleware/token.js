@@ -25,10 +25,6 @@ import ms from "ms";
 const generateToken = (user, res) => {
   const payload = {
     userId: user._id,
-    email: user.email,
-    firstName: user.firstName,
-    lastName: user.lastName,
-    phone: user.phone,
   };
 
   const token = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, {

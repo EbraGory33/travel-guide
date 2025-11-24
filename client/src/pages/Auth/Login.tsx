@@ -1,16 +1,16 @@
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useAppDispatch } from "../../app/hooks";
 
 import AuthCard from "../../components/Auth/AuthCard";
 import OAuthButton from "../../components/Auth/OAuthButton";
 import TextInput from "../../components/Auth/TextInput";
-import { logIn } from "../../services/authAPI";
+import { logIn, verify } from "../../services/authAPI";
 import { FaFacebookF, FaApple } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 
 export default function Login() {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const [formData, setFormData] = useState({
     email: "",
@@ -20,8 +20,9 @@ export default function Login() {
     e.preventDefault();
     try {
       console.log("Logging in...");
-      await logIn(dispatch, formData);
-      // navigate("/home");
+      await logIn(formData);
+      await verify(dispatch);
+      navigate("/home");
     } catch (error) {
       console.error("Login failed", error);
     }
@@ -32,7 +33,6 @@ export default function Login() {
       ...prev,
       [e.target.name]: e.target.value,
     }));
-    console.log(formData.email, formData.password);
   };
 
   return (
