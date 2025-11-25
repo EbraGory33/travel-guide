@@ -61,7 +61,21 @@ body {
   .input-field {
     @apply focus:outline-none;
   }
+  /* --- Search Results --- */
+  .search-results {
+    /* @apply fixed top-[60px] right-0.5 w-[284px] bg-[#383838] text-white rounded-lg p-2 font-sans; */
+    @apply absolute top-full left-0 mt-2 w-full bg-[#383838] text-white rounded-lg p-2 font-sans z-50;
+  }
+  .search-results p {
+    @apply text-[12px] font-medium text-[#a5a5a5] py-0.5 px-3;
+  }
+  .search-results ul li {
+    @apply cursor-pointer hover:bg-[#0359d1] rounded-sm;
+  }
 
+  .search-results ul li p {
+    @apply text-white;
+  }
   /* ---  Places Card  --- */
 
   .place-card {

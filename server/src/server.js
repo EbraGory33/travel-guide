@@ -6,6 +6,7 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import { connectDB } from "./config/db.js";
 import authRoutes from "./routes/authRoutes.js";
+import locationRoutes from "./routes/locationRoutes.js";
 
 const app = express();
 
@@ -29,6 +30,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/auth", authRoutes);
+app.use("/results", locationRoutes);
 
 // Start the server
 const PORT = process.env.PORT || 5000;

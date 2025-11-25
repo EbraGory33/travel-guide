@@ -30,6 +30,7 @@ function Layout() {
             <Route path="/home" element={<p>You are home</p>} />
             <Route path="/Login" element={<Login />} />
             <Route path="/Register" element={<Register />} />
+            <Route path="/Explorer/:id" element={<Explorer />} />
           </Routes>
         </div>
       </div>
