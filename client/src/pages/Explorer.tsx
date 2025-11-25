@@ -2,22 +2,32 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { PlacesCard } from "../components/Layout";
-import { getDetails } from "../services/searchs";
+import { getDetails, getAttractions } from "../services/searchs";
 
-export default function Explorer() {
+interface location {
+  lon: number;
+  lat: number;
+}
+
+export default function Explorer({ lon, lat }: location) {
   const { id } = useParams();
   const [images, setImages] = useState([]);
   const [description, setDescription] = useState("");
+  const [attractions, setAttractions] = useState([]);
 
   useEffect(() => {
     const details = async () => {
       const results = await getDetails(encodeURIComponent(id));
       setImages(results.images);
       setDescription(results.description);
+      const radius = 3000;
+      const attractionResults = await getAttractions({ lon, lat, radius });
+      setAttractions(attractionResults);
     };
     details();
   }, [id]);
   console.log(description);
+
   const [index, setIndex] = useState(0);
   const prev = () => {
     setIndex((i) => i - 1);
@@ -55,8 +65,8 @@ export default function Explorer() {
         </div>
         <div className="section-navigators">
           {/* TODO: Style buttons */}
-          <Link to="#">What to do</Link>
-          <Link to="#">Where to eat</Link>
+          {/* <Link to="#">What to do</Link>
+          <Link to="#">Where to eat</Link> */}
           {/* TODO: Later developemts */}
           {/* <Link to="#">Where to stay</Link> */}
         </div>
@@ -65,22 +75,27 @@ export default function Explorer() {
         //   TODO: Other section for later in developemt
         </div> */}
         <p className="top-places">Top Places to visit</p>
-        <PlacesCard
-          id={1}
-          Name={"Central Park"}
-          description={
-            "Central Park is a breathtaking green sanctuary nestled in the bustling heart of New York City, offering an escape from the urban hustle. Established in 1857, this iconic park spans over 800 acres, making it larger than London's Hyde Park. Visitors can meander along scenic walking paths and expansive lawns while discovering a plethora of attractions. From the enchanting Alice in Wonderland statue to Belvedere Castle perched on Vista Rock, every corner reveals something new."
-          }
-        />
 
-        <p className="top-places">Top Places to eat</p>
+        {attractions?.map((attraction, index) => (
+          <PlacesCard
+            key={index}
+            id={index}
+            Name={attraction.name}
+            Images={attraction.details?.images || []}
+            description={
+              attraction.details?.description || "No description available."
+            }
+          />
+        ))}
+
+        {/* <p className="top-places">Top Places to eat</p>
         <PlacesCard
           id={1}
           Name={"Central Park"}
           description={
             "Central Park is a breathtaking green sanctuary nestled in the bustling heart of New York City, offering an escape from the urban hustle. Established in 1857, this iconic park spans over 800 acres, making it larger than London's Hyde Park. Visitors can meander along scenic walking paths and expansive lawns while discovering a plethora of attractions. From the enchanting Alice in Wonderland statue to Belvedere Castle perched on Vista Rock, every corner reveals something new."
           }
-        />
+        /> */}
         {/* Todo: Hotel Bookings and prices */}
         {/* <div>Places to stay</div> */}
         {/* Todo: Top Travel Guides for Location*/}

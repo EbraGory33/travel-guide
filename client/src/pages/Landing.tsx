@@ -17,8 +17,8 @@ export default function Landing() {
           <div className="landing-actions">
             {/* For the Action buttons */}
             {/* TODO: Make this button functional*/}
-            <Link className="btn-primary" to="/">
-              Start Planning
+            <Link className="btn-primary" to="/Explorer">
+              Start Exploring
             </Link>
           </div>
         </div>

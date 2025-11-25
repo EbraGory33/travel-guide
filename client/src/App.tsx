@@ -7,7 +7,14 @@ import {
 } from "react-router-dom";
 import { Header } from "./components/Layout";
 // import { Login, Register, Landing, Explorer } from "./pages";
-import { Login, Register, Explorer } from "./pages";
+import {
+  Login,
+  Register,
+  Explorer,
+  ExplorerSearch,
+  Home,
+  Landing,
+} from "./pages";
 import { useAppDispatch } from "./app/hooks";
 // import { logout, verify } from "./services/authAPI";
 import { verify } from "./services/authAPI";
@@ -23,13 +30,12 @@ function Layout() {
         {!hideHeader && <Header />}
         <div className="main-content">
           <Routes>
-            {/* <Route path="/" element={<Landing />} /> */}
-            {/* TODO: delete/rewrite this route*/}
-            <Route path="/" element={<Explorer />} />
-            {/*  */}
-            <Route path="/home" element={<p>You are home</p>} />
+            <Route path="/" element={<Landing />} />
+
+            <Route path="/home" element={<Home />} />
             <Route path="/Login" element={<Login />} />
             <Route path="/Register" element={<Register />} />
+            <Route path="/Explorer" element={<ExplorerSearch />} />
             <Route path="/Explorer/:id" element={<Explorer />} />
           </Routes>
         </div>
