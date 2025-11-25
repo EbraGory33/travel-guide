@@ -34,7 +34,7 @@ export default function Register() {
       await verify(dispatch);
       navigate("/home");
     } catch (error) {
-      console.error("Login failed", error);
+      console.error("SignUp failed", error);
     }
   };
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

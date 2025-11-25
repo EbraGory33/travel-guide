@@ -21,7 +21,7 @@ html {
   2. Root Variables
 ========================================================================== */
 :root {
-  --background-color: #7b98b6;
+  --background-color: #adbbca;
 }
 body {
   background-color: var(--background-color);
