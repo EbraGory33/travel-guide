@@ -10,7 +10,7 @@ export const searchResults = async (location: string) => {
 //   return results;
 // };
 
-export const getDetails = async (id: string) => {
+export const getDetails = async (id: any) => {
   return apiFetch(`/results/detail?id=${encodeURIComponent(id)}`);
 };
 

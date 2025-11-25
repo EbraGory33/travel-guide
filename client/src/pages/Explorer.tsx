@@ -17,7 +17,7 @@ export default function Explorer() {
 
   useEffect(() => {
     const details = async () => {
-      const results = await getDetails(encodeURIComponent(id));
+      const results = await getDetails(encodeURIComponent(id!));
       setImages(results.images);
       setDescription(results.description);
       // const radius = 3000;
