@@ -31,10 +31,10 @@ export const searchResults = async (req, res) => {
 export const locationDetail = async (req, res) => {
   const { id } = req.query;
   const Images = await axios.get(
-    `https://api.unsplash.com/search/photos?query=${id}&client_id=11lkTLGt98NxDpoNDDbmBY0iY5LFr9qec_xVB3Uq4kY`
+    `https://api.unsplash.com/search/photos?query=${id}&client_id=${process.env.unsplash_Access_Key}`
   );
   const Descriptions = await getDetail(id);
-  //   return res.json(Descriptions);
+
   const imageArray = Images.data.results.map((item) => item.urls.regular);
   return res.json({ description: Descriptions, images: imageArray });
 };
@@ -54,11 +54,57 @@ const getDetail = async (id) => {
     return response.data.extract;
   } catch (error) {
     console.error("WIKIPEDIA ERROR:", error);
-    return res
-      .status(500)
-      .json({ error: "Wikipedia request failed", details: error.message });
+    return null;
+  }
+};
+export const getAttractions = async (req, res) => {
+  try {
+    const { lon, lat, radius = 3000 } = req.query;
+    console.log("Attractions: ", { lon, lat, radius });
+
+    const results = await axios.get(
+      `https://api.geoapify.com/v2/places?categories=tourism.sights&filter=circle:${lon},${lat},${radius}&limit=20&apiKey=${process.env.Geoapify_API_Key}`
+    );
+    console.log("Results: ", results);
+    const attractionsArray = results.data.features.map(
+      (attraction) => attraction.properties.name
+    );
+    const attractions = [];
+
+    for (const name of attractionsArray) {
+      try {
+        const details = await attractionDetail(name);
+        attractions.push({
+          name,
+          details,
+        });
+      } catch (detailError) {
+        console.error(
+          `Failed to fetch details for: ${name}`,
+          detailError.message
+        );
+      }
+    }
+    return res.json({ attractions });
+  } catch (error) {
+    console.error(
+      "GET ATTRACTIONS ERROR:",
+      error.response?.data || error.message
+    );
+
+    return res.status(500).json({
+      error: "Failed to retrieve attractions",
+      details: error.response?.data || error.message,
+    });
   }
 };
 
-// Descriptions:
-("https://en.wikipedia.org/api/rest_v1/page/summary/${city}");
+export const attractionDetail = async (id) => {
+  const Images = await axios.get(
+    `https://api.unsplash.com/search/photos?query=${id}&client_id=${process.env.unsplash_Access_Key}`
+  );
+  const Descriptions = await getDetail(id);
+
+  const imageArray = Images.data.results.map((item) => item.urls.regular);
+  return { description: Descriptions, images: imageArray };
+};
