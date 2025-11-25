@@ -19,7 +19,7 @@ export default function Header() {
               <Link className="header-links" to="/home">
                 Home
               </Link>
-              <Link className="header-links" to="/">
+              <Link className="header-links" to="/Explorer">
                 Places
               </Link>
               <Link className="header-links" to="/">

@@ -32,7 +32,7 @@ function Layout() {
           <Routes>
             <Route path="/" element={<Landing />} />
 
-            <Route path="/home" element={<Home />} />
+            <Route path="/home" element={<Landing />} />
             <Route path="/Login" element={<Login />} />
             <Route path="/Register" element={<Register />} />
             <Route path="/Explorer" element={<ExplorerSearch />} />
