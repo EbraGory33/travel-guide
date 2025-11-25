@@ -2,18 +2,22 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { PlacesCard } from "../components/Layout";
-
-const images = [
-  "https://images.unsplash.com/photo-1664531685548-f77f1da7c010?ixid=M3w4MzUwMjR8MHwxfHNlYXJjaHwxfHxuZXcteW9yay1jaXR5fGVufDB8fHx8MTc2NDAxMTAxOXww&ixlib=rb-4.1.0",
-  "https://images.unsplash.com/photo-1549692520-acc6669e2f0c",
-  "https://images.unsplash.com/photo-1534447677768-be436bb09401",
-];
+import { getDetails } from "../services/searchs";
 
 export default function Explorer() {
   const { id } = useParams();
   const [images, setImages] = useState([]);
-  useEffect(() => {}, []);
+  const [description, setDescription] = useState("");
 
+  useEffect(() => {
+    const details = async () => {
+      const results = await getDetails(encodeURIComponent(id));
+      setImages(results.images);
+      setDescription(results.description);
+    };
+    details();
+  }, [id]);
+  console.log(description);
   const [index, setIndex] = useState(0);
   const prev = () => {
     setIndex((i) => i - 1);
@@ -26,22 +30,10 @@ export default function Explorer() {
     <>
       <div className="explorer-section">
         <div className="image-wrapper">
-          <img
-            // src="https://images.unsplash.com/photo-1664531685548-f77f1da7c010?ixid=M3w4MzUwMjR8MHwxfHNlYXJjaHwxfHxuZXcteW9yay1jaXR5fGVufDB8fHx8MTc2NDAxMTAxOXww&ixlib=rb-4.1.0"
-            src={images[index]}
-            alt=""
-            className="h-[500px] w-[750px]"
-          />
+          <img src={images[index]} alt="" className="h-[500px] w-[750px]" />
           {/* Overlay content */}
-          <span className="places">{decodeURIComponent(id || "")}</span>
-          <span className="description">
-            New York City comprises 5 boroughs sitting where the Hudson River
-            meets the Atlantic Ocean. At its core is Manhattan, a densely
-            populated borough that’s among the world’s major commercial,
-            financial and cultural centers. Its iconic sites include skyscrapers
-            such as the Empire State Building and sprawling Central Park.
-            Broadway theater is staged in neon-lit Times Square.
-          </span>
+          <span className="places">{id}</span>
+          <span className="description">{description}</span>
           {/* Navigation arrows */}
           {index > 0 && (
             <button

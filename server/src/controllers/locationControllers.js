@@ -29,20 +29,36 @@ export const searchResults = async (req, res) => {
 };
 
 export const locationDetail = async (req, res) => {
-  const { location } = req.params;
-  const imagesUrl = `https://api.unsplash.com/search/photos?query=${location}&client_id=11lkTLGt98NxDpoNDDbmBY0iY5LFr9qec_xVB3Uq4kY`;
-  const Images = await axios.get(imagesUrl, {
-    params: {
-      limit: 10,
-      offset: 0,
-      types: "CITY",
-      namePrefix: location,
-    },
-  });
-  const imageArray = Images.results.map((item) => item.urls.regular);
-  return res.json(imageArray);
+  const { id } = req.query;
+  const Images = await axios.get(
+    `https://api.unsplash.com/search/photos?query=${id}&client_id=11lkTLGt98NxDpoNDDbmBY0iY5LFr9qec_xVB3Uq4kY`
+  );
+  const Descriptions = await getDetail(id);
+  //   return res.json(Descriptions);
+  const imageArray = Images.data.results.map((item) => item.urls.regular);
+  return res.json({ description: Descriptions, images: imageArray });
 };
-// Pictures:
-("https://api.unsplash.com/search/photos?query=${city}&client_id=11lkTLGt98NxDpoNDDbmBY0iY5LFr9qec_xVB3Uq4kY");
+const getDetail = async (id) => {
+  try {
+    const response = await axios.get(
+      `https://en.wikipedia.org/api/rest_v1/page/summary/${id}`,
+      {
+        headers: {
+          "User-Agent":
+            "TravelGuide/1.0 (https://yourwebsite.com contact: your@email.com)",
+          Accept: "application/json",
+        },
+      }
+    );
+
+    return response.data.extract;
+  } catch (error) {
+    console.error("WIKIPEDIA ERROR:", error);
+    return res
+      .status(500)
+      .json({ error: "Wikipedia request failed", details: error.message });
+  }
+};
+
 // Descriptions:
 ("https://en.wikipedia.org/api/rest_v1/page/summary/${city}");
