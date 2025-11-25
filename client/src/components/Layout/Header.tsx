@@ -1,10 +1,18 @@
+import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import { useAppSelector } from "../../app/hooks";
+import { useAppSelector, useAppDispatch } from "../../app/hooks";
 import Search from "../Search";
+import { logout } from "../../services/authAPI";
 
 export default function Header() {
   const { user, isLoggedIn } = useAppSelector((state) => state.user);
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   console.log("User: ", user);
+  const Logout = async () => {
+    await logout(dispatch);
+    navigate("/");
+  };
 
   return (
     <>
@@ -38,6 +46,9 @@ export default function Header() {
                   {/* Notification bell */}
                   {/* User Profile */}
                   <p>{user?.firstName}</p>
+                  <button className="btn-primary" onClick={Logout}>
+                    Logout
+                  </button>
                 </>
               ) : (
                 <>
