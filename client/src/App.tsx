@@ -7,14 +7,7 @@ import {
 } from "react-router-dom";
 import { Header } from "./components/Layout";
 // import { Login, Register, Landing, Explorer } from "./pages";
-import {
-  Login,
-  Register,
-  Explorer,
-  ExplorerSearch,
-  Home,
-  Landing,
-} from "./pages";
+import { Login, Register, Explorer, ExplorerSearch, Landing } from "./pages";
 import { useAppDispatch } from "./app/hooks";
 // import { logout, verify } from "./services/authAPI";
 import { verify } from "./services/authAPI";
